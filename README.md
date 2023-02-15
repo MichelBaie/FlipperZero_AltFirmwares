@@ -14,6 +14,6 @@ You can access builds in [Actions](https://github.com/MichelBaie/FlipperZero_Alt
 You must flash these builds with qFlipper from a computer
 
 1. Update your flipper to the latest firmware
-2. Use the flipper-full.bin file
+2. Use the flipper-full.dfu file
 3. copy f7-update/ressources.tar inside the SD Card of your Flipper
 4. Your flipper is flashed !
