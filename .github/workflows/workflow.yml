@@ -1,0 +1,50 @@
+name: MasterBuild
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  roguemaster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get RogueMaster repo
+        run: git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git
+      - name: Build RogueMaster firmware
+        run: |
+          cd flipperzero-firmware-wPlugins
+          pwd
+          ./fbt COMPACT=1 updater_package
+      - name: Upload Build to Github
+        uses: actions/upload-artifact@v3
+        with:
+          name: RogueMaster Firmware
+          path: /home/runner/work/FlipperZero_AltFirmwares/FlipperZero_AltFirmwares/flipperzero-firmware-wPlugins/dist
+  unleashed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Unleashed repo
+        run: git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git
+      - name: Build
+        run: |
+          cd unleashed-firmware
+          ./fbt COMPACT=1 updater_package
+      - name: Upload Build to Github
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unleashed Firmware
+          path: /home/runner/work/FlipperZero_AltFirmwares/FlipperZero_AltFirmwares/unleashed-firmware/dist
+  official:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Official FlipperZero repo
+        run: git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
+      - name: Build
+        run: |
+          cd flipperzero-firmware
+          ./fbt COMPACT=1 updater_package
+      - name: Upload Build to Github
+        uses: actions/upload-artifact@v3
+        with:
+          name: Official Firmware
+          path: /home/runner/work/FlipperZero_AltFirmwares/FlipperZero_AltFirmwares/flipperzero-firmware/dist
